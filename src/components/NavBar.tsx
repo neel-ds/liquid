@@ -40,19 +40,19 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`navbar fixed z-10 w-full mx-auto px-2 sm:px-4 py-3 rounded drop-shadow-md ${navbarBg} font-['Roobert'] bg-opacity-90`}
+        className={`navbar fixed z-10 w-full mx-auto px-2 sm:px-4 py-4 rounded drop-shadow-md ${navbarBg} font-['Roobert'] bg-opacity-90`}
       >
-        <div className="max-w-[1080px] container flex flex-wrap justify-between items-center mx-auto">
+        <div className="max-w-[1080px] relative container flex flex-wrap justify-between items-center mx-auto">
           <Link href="/" className="flex items-center flex-1">
             <span className="flex flex-row items-center self-end font-['trap'] text-neutral-100 text-2xl whitespace-nowrap">
               <Image
                 src="/liquid.svg"
-                width="30"
-                height="30"
+                width="32"
+                height="32"
                 alt="Liquid"
                 className="mr-3"
               />
-              LIQUID
+              Liquid
             </span>
           </Link>
           <div className="flex md:order-2" style={{ marginLeft: "2rem" }}>
