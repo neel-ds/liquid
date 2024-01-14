@@ -5,6 +5,7 @@ import { HiMenuAlt3 } from "react-icons/hi";
 import { useRouter } from "next/router";
 import { Menu, Transition } from "@headlessui/react";
 import { IoChevronDownOutline } from "react-icons/io5";
+import { ConnectKitButton } from "connectkit";
 
 const Navbar = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -56,6 +57,7 @@ const Navbar = () => {
             </span>
           </Link>
           <div className="flex md:order-2" style={{ marginLeft: "2rem" }}>
+            <ConnectKitButton />
             <button
               data-collapse-toggle="mobile-menu-4"
               type="button"
