@@ -70,7 +70,7 @@ const cardData = [
     title: "Manage portfolio",
     desc: "Invest in a bucket of tokens",
     content:
-      "Avoid micro-management by using Finn bucket feature and invest in bucket with higher returns",
+      "Avoid micro-management by using Liquid bucket feature and invest in bucket with higher returns",
   },
 ];
 
