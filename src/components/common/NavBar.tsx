@@ -10,7 +10,7 @@ function NavBar() {
           <Link className="hidden lg:inline-block text-lg font-bold" href="/">
             <Image
               className="h-10"
-              src="/liquid.svg"
+              src="/svgs/logo/liquid.svg"
               alt=""
               height={60}
               width={40}
@@ -19,7 +19,7 @@ function NavBar() {
           <Link className="inline-block lg:hidden text-lg font-bold" href="/">
             <Image
               className="h-10"
-              src="/liquid.svg"
+              src="/svgs/logo/liquid.svg"
               alt=""
               height={60}
               width={40}
@@ -28,10 +28,10 @@ function NavBar() {
           <ul className="hidden lg:flex ml-2 lg:w-auto lg:space-x-14 items-center">
             <li>
               <Link
-                className="inline-block text-3xl text-teal-400 font-semibold"
+                className="inline-block text-3xl text-teal-400 font-['Roobert'] font-semibold"
                 href={"/"}
               >
-                Liquid
+                LIQUID
               </Link>
             </li>
           </ul>

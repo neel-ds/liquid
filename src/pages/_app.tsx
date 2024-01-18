@@ -13,11 +13,10 @@ export default function App({ Component, pageProps }: AppProps) {
           theme="midnight"
           customTheme={{
             "--ck-font-family": "Trap",
-            "--ck-connectbutton-hover-background": "#14b8a6",
+            "--ck-connectbutton-hover-background": "#8b5cf6",
           }}
         >
-          <Navbar />
-          <div className="min-h-[calc(100vh-68px)] pt-16 px-8 sm:px-28 md:px-32 lg:px-48">
+          <div className="min-h-[calc(100vh-68px)] ">
             <Component {...pageProps} />
           </div>
         </ConnectKitProvider>

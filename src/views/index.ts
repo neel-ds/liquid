@@ -1,3 +1,4 @@
-import Hero from "./Home/Hero";
+import Hero from "./Home";
+import CreateForm from "./CreateForm";
 
-export { Hero };
+export { Hero, CreateForm };
