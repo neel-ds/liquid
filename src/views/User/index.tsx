@@ -126,7 +126,7 @@ export default function User({
     <>
       <Head>
         <title>{name}</title>
-        <meta name="description" content="TipX" />
+        <meta name="description" content="Liquid" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -138,7 +138,7 @@ export default function User({
             loader={() => icon}
             width="250"
             height="250"
-            alt="TipX"
+            alt="Liquid"
             className="w-60 h-60 object-cover sm:mr-3 justify-center mb-5 sm:mb-0 rounded-full"
           />
           <span className="flex flex-col text-center sm:text-left text-2xl font-semibold whitespace-nowrap">
