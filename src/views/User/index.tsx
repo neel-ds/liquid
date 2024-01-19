@@ -13,14 +13,14 @@ import { Toaster, toast } from "react-hot-toast";
 import { Navbar } from "@/components";
 
 interface UserAccount {
-  profileImage: string;
+  image: string;
   userName: string;
   name: string;
-  bio: string;
+  description: string;
   email: string;
   lens: string;
-  githubUrl: string;
-  twitterUrl: string;
+  github: string;
+  twitter: string;
   address: string;
 }
 
@@ -106,13 +106,14 @@ export default function User({
 
   useEffect(() => {
     if (parsedData) {
+      console.log("parsedData", parsedData.twitter);
       try {
         setName(parsedData.name);
-        setBio(parsedData.bio);
-        setIcon(parsedData.profileImage);
+        setBio(parsedData.description);
+        setIcon(parsedData.image);
         setLens(parsedData.lens);
-        setGithubUrl(parsedData.githubUrl);
-        setTwitter(parsedData.twitterUrl);
+        setGithubUrl(parsedData.github);
+        setTwitter(parsedData.twitter);
         setEmail(parsedData.email);
         getTags(parsedData.address);
         getTopNFTs(parsedData.address);
@@ -198,9 +199,8 @@ export default function User({
             <div
               id="authentication-modal"
               aria-hidden="true"
-              className={`${
-                modal ? "flex" : "hidden"
-              } fixed justify-center items-center backdrop-blur-sm z-50 w-full p-4 overflow-x-hidden overflow-y-auto inset-0 max-h-full`}
+              className={`${modal ? "flex" : "hidden"
+                } fixed justify-center items-center backdrop-blur-sm z-50 w-full p-4 overflow-x-hidden overflow-y-auto inset-0 max-h-full`}
             >
               <div className="relative w-full max-w-md max-h-full">
                 <div className="relative rounded-lg shadow bg-gray-900">
