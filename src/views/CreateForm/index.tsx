@@ -1,9 +1,12 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 // @ts-ignore
-import { Web3Storage } from "web3.storage";
 import { Toaster, toast } from "react-hot-toast";
 import { useRouter } from "next/router";
+import { ethers } from "ethers";
+import { contractAddress } from "../../contract/address";
+import ABI from "../../contract/ABI.json";
+import { useAccount } from "wagmi";
 
 export default function CreateForm() {
   const [icon, setIcon] = useState("");
@@ -20,19 +23,57 @@ export default function CreateForm() {
   const [error, setError] = useState();
   const router = useRouter();
 
-  const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    const files = (e.target as HTMLInputElement).files!;
-    if (process.env.NEXT_PUBLIC_WEB3STORAGE_TOKEN != null) {
-      const client = new Web3Storage({
-        token: process.env.NEXT_PUBLIC_WEB3STORAGE_TOKEN,
+  const { address } = useAccount();
+
+  const callContract = async (metaDataUrl: string) => {
+    const provider = new ethers.providers.Web3Provider(
+      (window as any).ethereum
+    );
+    await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(
+      contractAddress as `0x${string}`,
+      ABI,
+      signer
+    );
+    contract
+      .createProfile(userName, metaDataUrl, address)
+      .then(async (tx: string) => {
+        {
+          if (tx) {
+            setIsLoading(false);
+            toast.success("Profile Created Successfully");
+          }
+        }
       });
-      client.put(files).then((cid: String) => {
-        setIcon(`https://${cid}.ipfs.w3s.link/${files[0].name}`);
+  };
+
+  const uploadMetadata = async () => {
+    setIsLoading(true);
+    const metadata = {
+      userName: userName,
+      name: name,
+      description: bio,
+      image: icon,
+      twitter: twitterUrl,
+      lens: lens,
+      github: githubUrl,
+      email: email,
+    };
+    fetch("/api/upload", {
+      method: "POST",
+      body: JSON.stringify({
+        "content": metadata,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        callContract(data.protocolLink);
       });
-    } else {
-      console.log("No access token");
-    }
   };
 
   useEffect(() => {
@@ -56,7 +97,7 @@ export default function CreateForm() {
       setIsLoading(false);
       toast.error(
         (error as any).message.split("(")[0]?.toString() ||
-          "Something went wrong",
+        "Something went wrong",
         {
           style: {
             borderRadius: "10px",
@@ -110,9 +151,19 @@ export default function CreateForm() {
                           name="image"
                           type="file"
                           accept={"image/*"}
-                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            uploadImage(e)
-                          }
+                          onChange={(e: any) => {
+                            const image = URL.createObjectURL(e.target.files[0]);
+                            const formData = new FormData();
+                            formData.append("image", e.target.files[0]);
+                            fetch("/api/uploadFile", {
+                              method: "POST",
+                              body: formData,
+                            }).then(async (res: any) => {
+                              const { protocolLink } = await res.json();
+                              console.log(protocolLink);
+                              setIcon(`${protocolLink}/TokenX_NFT_Image.png`);
+                            });
+                          }}
                           required
                         ></input>
                       </span>
@@ -261,6 +312,7 @@ export default function CreateForm() {
                       type="submit"
                       onClick={(e: any) => {
                         e.preventDefault();
+                        uploadMetadata();
                         setIsLoading(true);
                       }}
                       className="inline-flex items-center justify-center w-full px-4 py-4 mt-2 text-base font-semibold text-white transition-all duration-200 bg-violet-500 border border-transparent rounded-md focus:outline-none hover:bg-violet-600 focus:bg-violet-600"

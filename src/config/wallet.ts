@@ -1,8 +1,8 @@
 import { createConfig } from "wagmi";
 import { getDefaultConfig } from "connectkit";
-import { polygonMumbai } from "wagmi/chains";
+import { polygonMumbai, sepolia } from "wagmi/chains";
 
-const chains = [polygonMumbai];
+const chains = [polygonMumbai, sepolia];
 const walletConnectProjectId =
   process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "";
 
