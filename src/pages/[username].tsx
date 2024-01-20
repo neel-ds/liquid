@@ -45,7 +45,7 @@ export default function Profile({ username }: { username: string }) {
     const data = await response.json();
     console.log("Data", data);
     setParsedData(data);
-  }
+  };
   const [parsedData, setParsedData] = useState<UserAccount>();
 
   return <User parsedData={parsedData} />;

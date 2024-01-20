@@ -199,8 +199,9 @@ export default function User({
             <div
               id="authentication-modal"
               aria-hidden="true"
-              className={`${modal ? "flex" : "hidden"
-                } fixed justify-center items-center backdrop-blur-sm z-50 w-full p-4 overflow-x-hidden overflow-y-auto inset-0 max-h-full`}
+              className={`${
+                modal ? "flex" : "hidden"
+              } fixed justify-center items-center backdrop-blur-sm z-50 w-full p-4 overflow-x-hidden overflow-y-auto inset-0 max-h-full`}
             >
               <div className="relative w-full max-w-md max-h-full">
                 <div className="relative rounded-lg shadow bg-gray-900">

@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
-// @ts-ignore
 import { Toaster, toast } from "react-hot-toast";
 import { useRouter } from "next/router";
+// @ts-ignore
 import { ethers } from "ethers";
 import { contractAddress } from "../../contract/address";
 import ABI from "../../contract/ABI.json";
@@ -63,7 +63,7 @@ export default function CreateForm() {
     fetch("/api/upload", {
       method: "POST",
       body: JSON.stringify({
-        "content": metadata,
+        content: metadata,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -97,7 +97,7 @@ export default function CreateForm() {
       setIsLoading(false);
       toast.error(
         (error as any).message.split("(")[0]?.toString() ||
-        "Something went wrong",
+          "Something went wrong",
         {
           style: {
             borderRadius: "10px",
@@ -152,7 +152,9 @@ export default function CreateForm() {
                           type="file"
                           accept={"image/*"}
                           onChange={(e: any) => {
-                            const image = URL.createObjectURL(e.target.files[0]);
+                            const image = URL.createObjectURL(
+                              e.target.files[0]
+                            );
                             const formData = new FormData();
                             formData.append("image", e.target.files[0]);
                             fetch("/api/uploadFile", {
