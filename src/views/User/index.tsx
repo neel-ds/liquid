@@ -127,24 +127,28 @@ export default function User({
               <div className="flex flex-row justify-center sm:justify-start space-x-2">
                 <Link
                   href={"https://twitter.com/" + twitter}
+                  target="_blank"
                   className="p-2 w-fit text-sm border border-gray-300 rounded-full hover:bg-[#1DA1F2] hover:border-[#1DA1F2] text-white"
                 >
                   <BsTwitter className="text-2xl md:text-3xl" />
                 </Link>
                 <Link
                   href={"mailto:" + email}
+                  target="_blank"
                   className="p-2 w-fit text-sm border border-gray-300 rounded-full hover:bg-violet-500 hover:border-violet-500 text-white"
                 >
                   <FiMail className="text-2xl md:text-3xl" />
                 </Link>
                 <Link
                   href={"https://github.com/" + githubUrl}
+                  target="_blank"
                   className="p-2 w-fit text-sm border border-gray-300 rounded-full hover:bg-black hover:border-black text-white"
                 >
                   <BsGithub className="text-2xl md:text-3xl" />
                 </Link>
                 <Link
-                  href={"https://www.lens.xyz/" + lens}
+                  href={"https://hey.xyz/u/" + lens}
+                  target="_blank"
                   className="px-1.5 py-1 w-fit text-sm border border-gray-300 rounded-full hover:bg-green-600 hover:border-lime-600 text-white"
                 >
                   <Image
