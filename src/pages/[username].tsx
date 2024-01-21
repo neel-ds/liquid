@@ -3,17 +3,7 @@ import { useState } from "react";
 import { useContractRead } from "wagmi";
 import { contractAddress } from "../contract/address";
 import ABI from "../contract/ABI.json";
-interface UserAccount {
-  image: string;
-  userName: string;
-  name: string;
-  description: string;
-  email: string;
-  lens: string;
-  github: string;
-  twitter: string;
-  address: string;
-}
+import { UserAccount } from "@/constant";
 
 export const getServerSideProps = async (context: any) => {
   const username = context.query.username;
