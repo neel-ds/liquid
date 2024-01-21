@@ -59,6 +59,7 @@ export default function CreateForm() {
       lens: lens,
       github: githubUrl,
       email: email,
+      address: address,
     };
     fetch("/api/upload", {
       method: "POST",

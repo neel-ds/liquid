@@ -11,6 +11,9 @@ import {
 } from "wagmi";
 import { Toaster, toast } from "react-hot-toast";
 import { Navbar } from "@/components";
+import { contractAddress, tokenAddress } from "@/contract/address";
+import { parseEther } from "viem";
+import { ethers } from "ethers";
 
 interface UserAccount {
   image: string;
@@ -71,37 +74,56 @@ export default function User({
   const [nftsData, setNftsData] = useState<NFTCard[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const [userName, setUserName] = useState("");
+  const [ownerAddress, setOwnerAddress] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const getTags = async (address: any) => {
-    const data = await fetch(`/api/getNFTTags?address=${address}`, {
-      method: "GET",
-    });
-    const tag = await data.json();
-    const tagsList: string[] = [];
-    if (tag.length > 0 && tagsList.length != tag.length) {
-      tag.map((t: string) => {
-        tagsList.push(t);
+  const sendGHO = async () => {
+    setIsLoading(true);
+    const provider = new ethers.providers.Web3Provider(
+      (window as any).ethereum
+    );
+    await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(
+      tokenAddress,
+      [
+        {
+          inputs: [
+            {
+              name: "to",
+              type: "address",
+            },
+            {
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "transfer",
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      signer
+    );
+    const wei = parseEther(amount.toString());
+    try {
+      const tx = await contract.transfer(ownerAddress, wei, {
+        gasLimit: 100000,
       });
+      await tx.wait();
+      toast.success("Transaction successful");
+      setIsLoading(false);
+    } catch (e: any) {
+      console.error(e);
+      toast.error(e?.message || "Transaction failed");
+      setIsLoading(false);
     }
-    setTags(tagsList);
-  };
-
-  const getTopNFTs = async (address: any) => {
-    const data = await fetch(`/api/getTopNFTs?address=${address}`, {
-      method: "GET",
-    });
-    const nfts = await data.json();
-    const nftsList: NFTCard[] = [];
-    if (nfts.length > 0) {
-      nfts.map((nft: any) => {
-        nftsList.push({
-          image: nft.image_uri,
-          name: nft.name,
-        });
-      });
-    }
-    setNftsData(nftsList);
   };
 
   useEffect(() => {
@@ -115,8 +137,7 @@ export default function User({
         setGithubUrl(parsedData.github);
         setTwitter(parsedData.twitter);
         setEmail(parsedData.email);
-        getTags(parsedData.address);
-        getTopNFTs(parsedData.address);
+        setOwnerAddress(parsedData.address);
         setUserName(parsedData.userName);
       } catch (e) {
         console.log(e);
@@ -170,7 +191,12 @@ export default function User({
                 href={"https://www.lens.xyz/" + lens}
                 className="w-fit text-sm border border-gray-700 rounded-full hover:bg-lime-300 hover:border-lime-300 hover:text-white"
               >
-                <Image src="/lens.png" height={36} width={36} alt="social" />
+                <Image
+                  src="/images/icons/lens.png"
+                  height={36}
+                  width={36}
+                  alt="social"
+                />
               </Link>
             </div>
             <div className="flex flex-col md:flex-row items-center mt-2 space-y-1 md:space-y-0 md:space-x-1 ">
@@ -253,9 +279,9 @@ export default function User({
                         />
                       </div>
                       <button
-                        onClick={(e) => {
+                        onClick={async (e) => {
                           e.preventDefault();
-                          setIsLoading(true);
+                          await sendGHO();
                         }}
                         type="submit"
                         className="w-full text-white bg-violet-500 focus:ring-1 focus:outline-none hover:bg-violet-600 focus:ring-violet-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
