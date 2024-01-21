@@ -121,7 +121,9 @@ export default function Hero() {
                 <div className="max-w-2xl">
                   <h1 className="font-heading text-4xl xs:text-5xl md:text-6xl xl:text-6xl font-bold text-gray-50 mb-8 sm:mb-14">
                     <span>Flex your social profile </span>
-                    <span className="font-serif italic text-orange-500">on-chain</span>
+                    <span className="font-serif italic text-orange-500">
+                      on-chain
+                    </span>
                   </h1>
                 </div>
                 <div className="md:flex mb-14 max-w-xs sm:max-w-sm md:max-w-none">
@@ -141,9 +143,8 @@ export default function Hero() {
                   </div>
                   <div className="max-w-md">
                     <p className="md:text-xl text-gray-300/90 font-semibold">
-                      Easily assess your activities and provides tag. Get your
-                      top NFT collection showcase and share it with your frends.
-                      Simply create, grow and earn!
+                      Everything you are. In one, simple link in bio and share
+                      it with your audience. Simply create, grow and earn!
                     </p>
                   </div>
                 </div>
